@@ -4,7 +4,6 @@
 
 Salah satu aspek dalam bidang pendidikan yang perlu diperhatikan adalah kemampuan atau kinerja yang dimiliki oleh siswa dengan melakukan pemahaman dan sekaligus memprediksi kinerja akademik dari siswa tersebut. dengan adanya kemajuan teknologi di zaman sekarang ini, tentu tidak luput dari adanya penerapan dari sebuah machine learning yang dibuat untuk menganalisis kinerja dari siswa sendiri yang dapat membantu permasalahan ini secara efektif. Tujuan diadakannya proyek ini untuk membangun model klasifikasi dalam memprediksi kinerja siswa berdasarkan waktu belajar dari siswa, kehadiran dari siswa dalam ke sekolah, ajaran dari orang tua, serta kegiatan yang diikuti oleh siswa seperti ekstrakurikuler dan lain sebagainya. dengan demikian harapan proyek machine learning klasifikasi ini dapat membantu dalam mengetahui kinerja dari siswa yang dilihat berdasarkan karakteristik dari siswa tersebut.
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
 - Jelaskan mengapa masalah tersebut harus diselesaikan ?
 Masalah kinerja pada siswa harus diselesaikan karena sangat fatal jika tidak dilakukan sebab pendidikan sangat rawan khususnya bagi siswa dengan faktor yang akan terjadi jika tidak diperhatikan adalah terjadinya putus sekolah dan retensi siswa. masalah tersebut tentu memicu dalam hal menciptakan sumber daya manusia. karena itu permasalahan ini harus diselesaikan.
 
@@ -25,7 +24,6 @@ Menjelaskan tujuan dari pernyataan masalah:
 - Membangun model klasifikasi untuk memprediksi kategori nilai akhir siswa.
 - Mengidentifikasi fitur-fitur yang berkontribusi terhadap kinerja akademik siswa   .
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
 ### Solution statements
 - Membangun model dengan menggunakan algoritma Random Forest untuk membantu dalam memprediksi kinerja siswa.
 - Melakukan peningkatan performa model dengan menerapkan hyperparameter tuning menggunakan GridSearchCV.
@@ -34,26 +32,33 @@ Menjelaskan tujuan dari pernyataan masalah:
 
 ## Data Understanding
 dataset yang dipilih adalah dataset kinerja dari siswa yang menampilkan berbagai atribut kondisi dari setiap siswa dan target dari variabel yaitu peringkat kelas 
-**link dataset** : [Students Performance Dataset](https://www.kaggle.com/datasets/rabieelkharoua/students-performance-dataset).
-**jumlah data**: 2392
-### Variabel-variabel pada Restaurant UCI dataset adalah sebagai berikut:
-- Age: Usia siswa. `typedata:int64`
-- Gender: Jenis kelamin siswa. `typedata:int64`
-- Ethnicity: Kelompok etnis dari siswa. `typedata:int64`
-- ParentalEducation: Tingkat pendidikan orang tua siswa. `typedata:int64`
-- StudyTimeWeekly: Waktu belajar per minggu. `typedata:float64`
-- Absences: Jumlah ketidakhadiran oleh siswa. `typedata:int64`
-- Tutoring: kegiatan bimbel dari siswa ya/tidak mengikuti. `typedata:int64` 
-- ParentalSupport: dukungan orang tua siswa dalam belajar. `typedata:int64`
-- Extracurricular: kegiatan ekstrakurikuler oleh siswa ya/tidak mengikuti. `typedata:int64`
-- Sports: kegiatan olah raga oleh siswa ya/tidak mengikuti. `typedata:int64`
-- Music: kegiatan musik oleh siswa ya/tidak mengikuti. `typedata:int64`
-- Volunteer: kegiatan sukarelawan oleh siswa ya/tidak mengikuti. `typedata:int64`
-- GPA: Nilai rata-rata siswa.`typedata:float64`
-- GradeClass: Target klasifikasi berupa label performa akhir.`typedata:float64`
- 
+**Tautan Sumber Data** : [Students Performance Dataset](https://www.kaggle.com/datasets/rabieelkharoua/students-performance-dataset).
+**jumlah data**: Baris = 2392, Kolom = 15
+**Kondisi Data**:
+- Missing Value: Tidak ditemukan nilai kosong pada dataset (hasil dari kode `data.isnull().sum()` manghasilkan nol untuk semua fitur pada dataset).
+- Data Duplikat: Tidak terdapat duplikat dalam dataset (hasil dari kode `data.duplicated().sum()` = 0).
 
-**Rubrik/Kriteria Tambahan (Opsional)**:
+### Variabel-variabel pada dataset **student performance classification** adalah sebagai berikut:
+| Nama Fitur          | Deskripsi                                                                | Tipe Data |
+| ------------------- | -------------------------------------------------------------------------| --------- |
+| Student ID          | id dari siswa (1001 to 3392)                                             | Integer   |
+| `Age`               | Usia siswa (15 -18 tahun)                                                | Integer   |
+| `Gender`            | Jenis kelamin siswa (0 = Laki-laki, 1 = Perempuan)                       | Integer   |
+| `Ethnicity`         | Kelompok etnis siswa (0: Caucasian,1: African American,2: Asian,3: Other)| Integer   |
+| `ParentalEducation` | Tingkat pendidikan tertinggi orang tua siswa 
+                        (0: None,1: High School,,2: Some College, 3: Bachelor's,4: Higher)       | Integer   |
+| `StudyTimeWeekly`   | Rata-rata waktu belajar siswa per minggu (0-20)                          | float64   |
+| `Absences`          | Jumlah ketidakhadiran siswa di sekolah(0-30)                             | Integer   |
+| `Tutoring`          | Keikutsertaan dalam les/bimbingan belajar (0 = Tidak, 1 = Ya)            | Integer   |
+| `ParentalSupport`   | Dukungan orang tua dalam kegiatan akademik siswa 
+                        (0: None, 1: Low, 2: Moderate, 3: High, 4: Very High)                    | Integer   |
+| `Extracurricular`   | Partisipasi dalam kegiatan ekstrakurikuler (0 = Tidak, 1 = Ya)           | Integer   |
+| `Sports`            | Keikutsertaan dalam kegiatan olahraga (0 = Tidak, 1 = Ya)                | Integer   |
+| `Music`             | Keikutsertaan dalam kegiatan musik (0 = Tidak, 1 = Ya)                   | Integer   |
+| `Volunteer`         | Keikutsertaan dalam kegiatan sukarelawan (0 = Tidak, 1 = Ya)             | Integer   |
+| `GPA`               | Nilai rata-rata akademik siswa (2.0-4.0)                                 | float64   |
+| `GradeClass`        | Target label performa akhir siswa (0-4)                                  | float64   |
+
 **teknik visualisasi data atau exploratory data analysis**
 - identifikasi atribut dari dataset
 ![imgidentifikasidata](https://drive.google.com/file/d/1lvxer7WwFTqU_lpUlonoI6VmxRx35Z09/view?usp=drive_link)
@@ -68,18 +73,21 @@ dataset yang dipilih adalah dataset kinerja dari siswa yang menampilkan berbagai
 
 ## Data Preparation
 **tahapan**:
-- cek missing value
-Melakukan cek nilai kosong terhadap data dengan menggunakan teknik `print(data.isnull().sum())` bertujuan menghindari data kosong yang menyebabkan mengurangi performa pada model
-- cek duplikat data
-Melakukan cek nilai duplikat terhadap data dengan menggunakan teknik `print(data.duplicated().sum())` dengan tujuan agar tidak ada data yang sama sehingga menghambat dalam proses belajar pada data
-- normalisasi
-melakukan normalisasi pada data dengan menggunakan MinMaxScaler dengan teknik `scaler = MinMaxScaler()` dengan tujuan menormlisasi data numerik agar model lebih mudah memahami
-- split dataset dengan teknik `train_test_split()` yang bertujuan membagi data ke dalam data training ataupun data testing 
+- Handling Missing Value
+Tidak ditemukan nilai kosong, sehingga tidak diperlukan imputasi atau penghapusan pada dataset.
+- Handling Duplikat
+Tidak ditemukan data duplikat, tidak ada tindakan tambahan yang dilakukan pada dataset.
+- normalisasi/standardisasi
+melakukan normalisasi pada semua fitur kecuali fitur target pada data dengan menggunakan MinMaxScaler dengan teknik `scaler = MinMaxScaler()` dengan tujuan menormlisasi data numerik agar seragam (0-1) dan model lebih mudah memahami
+- split dataset dengan teknik `train_test_split()` yang bertujuan membagi data ke dalam data training ataupun data testing. pembagian data dengan rasio `training:testing = 80:20` dan `random state sebanyak 42`
 
 melakukan tahapan ini bertujuan agar modelling tetap belajar dengan baik pada saat training dan di normalisasi agar data lebih baik saat dipelajari, dan tidak bias terhadap skala nilai fitur tertentu.
 
-
 ## Modeling
+#### Random Forrest
+- 
+
+
 model yang digunakan untuk machine learning klasifikasi ini yaitu `random forrest`. dengan parameter `random_state sebanyak 42`. melakukan hyperparameter tunning pada model menggunakan `GridSearchCV`, model randomforrest ini, untuk mengeksplorasi kombinasi terbaik parameter yang digunakan antaranya: 
 - n_estimators[50,100,200]: Semakin banyak pohon, semakin stabil prediksi model. Namun, semakin banyak juga waktu komputasi, 
 - max_depth[none,10,20,30]: Kedalaman pohon memengaruhi kompleksitas dan risiko overfitting. Batasan kedalaman membantu mengontrol hal tersebut, 
