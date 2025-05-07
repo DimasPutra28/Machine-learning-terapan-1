@@ -45,13 +45,13 @@ dataset yang dipilih adalah dataset kinerja dari siswa yang menampilkan berbagai
 | `Age`               | Usia siswa (15 -18 tahun)                                                | Integer   |
 | `Gender`            | Jenis kelamin siswa (0 = Laki-laki, 1 = Perempuan)                       | Integer   |
 | `Ethnicity`         | Kelompok etnis siswa (0: Caucasian,1: African American,2: Asian,3: Other)| Integer   |
-| `ParentalEducation` | Tingkat pendidikan tertinggi orang tua siswa 
-                        (0: None,1: High School,,2: Some College, 3: Bachelor's,4: Higher)       | Integer   |
+| `ParentalEducation` | Tingkat pendidikan tertinggi orang tua siswa                             |           |
+|                     | (0: None,1: High School,,2: Some College, 3: Bachelor's,4: Higher)       | Integer   |
 | `StudyTimeWeekly`   | Rata-rata waktu belajar siswa per minggu (0-20)                          | float64   |
 | `Absences`          | Jumlah ketidakhadiran siswa di sekolah(0-30)                             | Integer   |
 | `Tutoring`          | Keikutsertaan dalam les/bimbingan belajar (0 = Tidak, 1 = Ya)            | Integer   |
-| `ParentalSupport`   | Dukungan orang tua dalam kegiatan akademik siswa 
-                        (0: None, 1: Low, 2: Moderate, 3: High, 4: Very High)                    | Integer   |
+| `ParentalSupport`   | Dukungan orang tua dalam kegiatan akademik siswa                         |           |
+|                     | (0: None, 1: Low, 2: Moderate, 3: High, 4: Very High)                    | Integer   |
 | `Extracurricular`   | Partisipasi dalam kegiatan ekstrakurikuler (0 = Tidak, 1 = Ya)           | Integer   |
 | `Sports`            | Keikutsertaan dalam kegiatan olahraga (0 = Tidak, 1 = Ya)                | Integer   |
 | `Music`             | Keikutsertaan dalam kegiatan musik (0 = Tidak, 1 = Ya)                   | Integer   |
@@ -61,15 +61,20 @@ dataset yang dipilih adalah dataset kinerja dari siswa yang menampilkan berbagai
 
 **teknik visualisasi data atau exploratory data analysis**
 - identifikasi atribut dari dataset
-![imgidentifikasidata](https://drive.google.com/file/d/1lvxer7WwFTqU_lpUlonoI6VmxRx35Z09/view?usp=drive_link)
+![Identifikasi data](https://github.com/user-attachments/assets/cce7f07d-a05c-44dc-a345-fe6b22c945b8)
 - melakukan korelasi pada variabel numerik semua atribut dataset
-![imgkorelasidata](https://drive.google.com/file/d/1IlXDAYn89vzjlHytP79sZJo22TvPzQKv/view?usp=drive_link)
+![korelasi_data](https://github.com/user-attachments/assets/b8c87202-bfe8-4d83-a35b-5bdc6c7b89a5)
+
 - barplot distribusi untuk melihat persebaran jumlah tiap gradeClass
-![imgdistribusitarget](https://drive.google.com/file/d/1llwceayZoOmBU6S3niE641B5UCh8L09Z/view?usp=drive_link)
+![dis](https://github.com/user-attachments/assets/b8a46cb1-1a9e-4c61-a06e-4f9f5ca8a043)
+
 - menganalisis distribusi data melalui boxplot dan scatter plot dengan membandingkan atribut target class yaitu GradeClass dan GPA, GradeClass dan Absences, GPA dan Absences yang dilihat berdasarkan hasil korelasi yang dilihat pada matriks
-- ![GPA&GradeClass](https://drive.google.com/file/d/1ifi-I1dYDNook6w4SgNYbjp3jKQ7_ND9/view?usp=drive_link)
-- ![absences&Gradeclass](https://drive.google.com/file/d/1HcRzfSboc0fV43ljifMZSo7Z79Sf6S57/view?usp=drive_link)
-- ![GPA&Absences](https://drive.google.com/file/d/1Bsmhel9Rl_UKi_FpWN3XOn_MMH1a_Wan/view?usp=drive_link)
+- ![GPAvsGradeClass](https://github.com/user-attachments/assets/a14cc8f2-7ec9-4f84-9194-9fa1ecc666e9)
+
+- ![GradeClassvsAbsences](https://github.com/user-attachments/assets/8b10aebb-9b93-473d-983d-bdee47d53431)
+
+- ![GPAvsAbsences](https://github.com/user-attachments/assets/896ae56d-5424-4c74-a44d-8338676302d8)
+
 
 ## Data Preparation
 **tahapan**:
@@ -96,7 +101,6 @@ model yang digunakan untuk machine learning klasifikasi ini yaitu `random forres
 - Cross-validation (cv=5) untuk menghindari overfitting
 - Scoring: f1_weighted — sesuai dengan kebutuhan klasifikasi multikelas yang tidak seimbang.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
 - kelebihan: akurasi skor model menunjukkan hasil tinggi dan algoritma cukup sederhana
 - Kekurangan: berpotensi overfitting karena model terlalu hapal terhadap data yang dipelajari
 - pada model setelah melakukan hyperparamer tunning, model akurasi skor tetap, dan berpotensi mengurangi overfitting yaitu model mengurangi proses belajar terhadap data dan tidak terlalu hapal dalam belajar data. 
@@ -118,7 +122,6 @@ Model juga divisualisasikan menggunakan confusion matrix dan learning curve, yan
 - Dengan F1-score yang tinggi, berarti model dapat memberikan dukungan keputusan yang andal kepada sekolah.
 - Model ini tidak hanya akurat, tapi juga sensitif terhadap ketidakseimbangan data kelas — penting dalam konteks pendidikan di mana kelas minoritas (misal siswa berisiko rendah) tidak boleh terabaikan.
 
-**Rubrik/Kriteria Tambahan (Opsional)**: 
 - Accuracy = (TP + TN) / (TP + TN + FP + FN)
 - Precision = TP / (TP + FP)
 - Recall = TP / (TP + FN)
