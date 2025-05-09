@@ -90,10 +90,9 @@ melakukan tahapan ini bertujuan agar modelling tetap belajar dengan baik pada sa
 
 ## Modeling
 #### Random Forrest
-- 
-
-
-model yang digunakan untuk machine learning klasifikasi ini yaitu `random forrest`. dengan parameter `random_state sebanyak 42`. melakukan hyperparameter tunning pada model menggunakan `GridSearchCV`, model randomforrest ini, untuk mengeksplorasi kombinasi terbaik parameter yang digunakan antaranya: 
+Cara kerja untuk model random forrest ini dengan menerapkan ensemble berbasis pohon keputusan / decision tree yang bekerja dengan cara membuat banyak pohon keputusan secara acak dari subset data, dan mengambil hasil prediksi dari mayoritas hasil data sebagai output akhir.
+Parameter yang digunakan pada pembangunan model random forrest ini, hanya menggunakan (randomstate = 42) yang digunakan sebagai seed untuk replikasi dari hasil.
+pada model ini menggunakan hyperparameter tunning GridSearchCV dengan tujuan memperbaiki hasil model agar meminimalisir overfitting dan cara keja dengan melakukan kombinasi dari beberapa parameter yang digunakan, parameter yang digunakan pada tuning diantaranya:
 - n_estimators[50,100,200]: Semakin banyak pohon, semakin stabil prediksi model. Namun, semakin banyak juga waktu komputasi, 
 - max_depth[none,10,20,30]: Kedalaman pohon memengaruhi kompleksitas dan risiko overfitting. Batasan kedalaman membantu mengontrol hal tersebut, 
 - min_samples_split[2,5,10]: Mencegah pohon membelah terlalu cepat dan menghasilkan cabang kecil yang tidak bermakna (overfitting),
@@ -101,32 +100,20 @@ model yang digunakan untuk machine learning klasifikasi ini yaitu `random forres
 - Cross-validation (cv=5) untuk menghindari overfitting
 - Scoring: f1_weighted — sesuai dengan kebutuhan klasifikasi multikelas yang tidak seimbang.
 
-- kelebihan: akurasi skor model menunjukkan hasil tinggi dan algoritma cukup sederhana
-- Kekurangan: berpotensi overfitting karena model terlalu hapal terhadap data yang dipelajari
-- pada model setelah melakukan hyperparamer tunning, model akurasi skor tetap, dan berpotensi mengurangi overfitting yaitu model mengurangi proses belajar terhadap data dan tidak terlalu hapal dalam belajar data. 
+kelebihan: 
+- Sangat baik dalam menangani dataset dengan banyak fitur dan kompleksitas tinggi.
+- meminimalisir overfitting setelah melakukan tuning menggunakan parameter yang telah digunakan.
+- Mendukung interpretasi pentingnya fitur.
+- hasil akurasi cukup tinggi
 
+Kekurangan:
+- berpotensi overfitting karena model terlalu hapal terhadap data yang dipelajari
+- Lebih lambat dalam proses pelatihan dibandingkan model sederhana.
+- Konsumsi memori tinggi untuk banyak pohon.
+- Kurang interpretatif dibanding model linear.
 
 ## Evaluation
-Matriks yang digunakan dalam evaluasi model:
-- Accuracy untuk mengetahui seberapa banyak prediksi yang tepat dari total data: `sebanyak 91%`
-- Precision digunakan untuk mengevaluasi ketepatan model dalam memprediksi kelas: `sebanyak 91%`
-- Recall digunakan untuk melihat seberapa baik model dapat menangkap kelas target: `sebanyak 91%`
-- F1 Score digunakan untuk rata-rata harmonis dari precision dan recall, dihitung berdasarkan proporsi setiap kelas: `sebanyak 90%`
-dikarena target berupa multikelas dan distribusi kelas tidak seimbang, perhitungan F1-score (weighted) digunakan sebagai metrik utama.
-dengan Hasil evaluasi:
-- Accuracy skor: `91%` - menunjukkan bahwa sebagian besar prediksi model sesuai dengan label asli.
-- F1 Score (weighted): `90%` - metrik utama yang mencerminkan bahwa model cukup seimbang dalam mengenali setiap kelas.
-Model juga divisualisasikan menggunakan confusion matrix dan learning curve, yang menunjukkan bahwa model tidak mengalami overfitting setelah tuning.
-
-- Metrik F1-score sangat relevan untuk proyek ini karena tujuannya adalah mendeteksi siswa dengan risiko performa rendah, dan kesalahan klasifikasi bisa berarti intervensi yang salah atau terlambat.
-- Dengan F1-score yang tinggi, berarti model dapat memberikan dukungan keputusan yang andal kepada sekolah.
-- Model ini tidak hanya akurat, tapi juga sensitif terhadap ketidakseimbangan data kelas — penting dalam konteks pendidikan di mana kelas minoritas (misal siswa berisiko rendah) tidak boleh terabaikan.
-
-- Accuracy = (TP + TN) / (TP + TN + FP + FN)
-- Precision = TP / (TP + FP)
-- Recall = TP / (TP + FN)
-- F1-Score = 2 * (Precision * Recall) / (Precision + Recall)
-
-model randomforrest menghasilkan skor tinggi di angka 91% meskipun terdapat adanya overfitting, namun dengan adanya hyperparameter tunning dapat menstabilkan performa model sehingga mengurangi overfitting dan klasifikasi dilakukan terhadap beberapa kelas (GradeClass) dengan distribusi yang tidak merata, maka digunakan F1-score (weighted) agar metrik akhir mempertimbangkan kontribusi dari setiap kelas sesuai proporsinya. yang diharapkan model ini dapat membantuk dalam memprediksi dan mendeteksi dari kinerja siswa di akademik sekolah.
-
-
+- Hasil evaluasi dari model yang telah dibangun memiliki dampak yang sangat berpengaruh terhadap prediksi kinerja siswa, karena hasil menunjukkan model cukup akurat dan seimbang. hasil evaluasi model klasifikasi yang dibangun telah menghasilkan akurasi skor di angka 91% dan evaluasi F1 score diangka 90% dengan memanfaatkan fitur yang tersedia pada data yaitu absensi, nilai GPA, dan lain sebagainya. menunjukkan bahwa model bisa memprediksi performa kinerja siswa berdasarkan fitur pada data dilihat melalui hasil akurasi dan F1 score pada evaluasi model.
+- melalui hasil evaluasi model akurasi F1 score sebagai acuan hasil, menunjukkan model condong ke kelas minoritas dengan arti siswa dengan kinerja rendah dapat di identifikasi oleh model dengan cepat, sehingga sekolah menjadi terbantu dalam mendeteksi konerja siswa yang rendah dan dapat melakukan intervensi lebih dini dan efektif.
+- model klasifikasi yang menggunakan random forrest ini berhasil dibangun sesuai harapan dengan menunjukkan evaluasi hasil performa yang cukup tinggi, pembangunan model ini berhasil dibangun dengan kontribusi dari semua fitur pada data dan beberapa fitur tersebut yang berkontirbusi lebih karena terdapat korelasi cukup tinggi yang diantaranya absensi, nilai GPA.
+- dari solusi yang direncanakan sangat berdampak pada prediksi kinerja pada siswa. Strategi ini memberikan model yang dibuat menggunakan randomforrest menjadi yang kuat dan stabil dengan hasil tinggi, serta menangani menggunakan F1-score untuk ketidakseimbangan data dengan baik. Hasil evaluasi dengan menggunakan tunning GridSearchcv berdampak bahwa model mengurang dalam hal overfitting dan memberikan dampak pada prediksi yang dapat diandalkan.
