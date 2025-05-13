@@ -78,11 +78,7 @@ dataset yang dipilih adalah dataset kinerja dari siswa yang menampilkan berbagai
 
 ## Data Preparation
 **tahapan**:
-- Handling Missing Value
-Tidak ditemukan nilai kosong, sehingga tidak diperlukan imputasi atau penghapusan pada dataset.
-- Handling Duplikat
-Tidak ditemukan data duplikat, tidak ada tindakan tambahan yang dilakukan pada dataset.
-- normalisasi/standardisasi
+- normalisasi
 melakukan normalisasi pada semua fitur kecuali fitur target pada data dengan menggunakan MinMaxScaler dengan teknik `scaler = MinMaxScaler()` dengan tujuan menormlisasi data numerik agar seragam (0-1) dan model lebih mudah memahami
 - split dataset dengan teknik `train_test_split()` yang bertujuan membagi data ke dalam data training ataupun data testing. pembagian data dengan rasio `training:testing = 80:20` dan `random state sebanyak 42`
 
